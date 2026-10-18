@@ -1,0 +1,183 @@
+================================================================================
+PROMPTBRIDGE: AUTONOMOUS UNIVERSAL AI PROMPT ENGINEER AGENT
+COMPLETE PROJECT SPECIFICATION & ARCHITECTURE BLUEPRINT (FINAL VERSION)
+================================================================================
+
+1. EXECUTIVE SUMMARY & PRODUCT VISION
+--------------------------------------------------------------------------------
+Most users interact with AI using vague, one-liner queries ("help me build an app", 
+"explain normalization", "bhai workout split bana de") and receive generic, mediocre 
+answers. Instead of building another basic AI chatbot wrapper, PromptBridge is 
+built strictly as the "Universal Input Layer" (A pure AI Prompt Engineer).
+
+PromptBridge acts as an intelligent intermediary that intercepts raw, unstructured, 
+slang, broken English, Hinglish/Telugish, or voice transcripts, diagnoses what 
+context is missing, asks rapid-tap clarifying questions, and mathematically 
+constructs a world-class "Master Prompt" ready to copy and launch in ChatGPT, 
+Claude, Gemini, or DeepSeek.
+
+Core Principle: "Ask First, Engineer Second" (Diagnostic Prompt Engineering).
+Strict Scope: PromptBridge ONLY engineers, optimizes, and formats prompts. It does 
+NOT act as a chatbot or generate the final task answer inside the app.
+
+
+2. THE 3-PHASE USER JOURNEY
+--------------------------------------------------------------------------------
+Phase 1: Messy Human Input
+- Input Box: Clean, distraction-free conversational bar with quick-inspiration badges.
+- Formats accepted: English, broken sentences, Hinglish/Telugish, or raw speech transcripts.
+- Free Voice Input: Native Web Speech API mic button for instant dictation.
+- Anti-Fluff Shield Toggle: Auto-injects strict negative constraints (no filler, no robotic intros).
+- Engine Selector: Toggle between Groq (Llama-3.3-70B) and Gemini 2.0 Flash.
+
+Phase 2: The Diagnostic Check (Smart Clarifying Questions)
+- Dynamic Sizing (1 to 4 Questions Max): Asks only the highest-leverage questions 
+  needed to resolve 80% of ambiguity and autonomously infers smart defaults for the rest.
+- Multi-Select Rapid-Tap Pills: 3 to 4 clickable option pills per question. Users 
+  can toggle single or multiple pills per question for 3-second responses.
+- Flexibility: Custom text input per question + [⚡ Skip to Best Defaults] button.
+- Jargon-Free UX: Framework routing happens silently in the backend; no confusing 
+  acronyms displayed to everyday users.
+
+Phase 3: Master Prompt Synthesis & Instant External Launch
+- Generation Speed: Sub-second (< 0.5s) using Groq Llama-3.3-70B.
+- Master Prompt Output: Syntax-highlighted, fully engineered prompt card.
+- Upgrade Breakdown Badges: Displays pills showing what the AI Engineer added 
+  (e.g., "Persona: Senior Architect", "CoT Reasoning Injected", "Anti-Fluff Locked").
+- Dynamic Variable Placeholders: Automatically inserts highlighted `[PASTE YOUR CODE / TEXT HERE]` 
+  blocks if the user's prompt requires external data they haven't pasted yet.
+- Quality Score: Clean badge comparing Initial Score vs. Engineered Score (e.g., "18% -> 98%").
+- Target LLM Syntactic Tuning Toggle:
+  * Universal Mode: Clean markdown hierarchy for any LLM.
+  * Claude Mode: Structured XML tags (<role>, <context>, <constraints>, <output_format>).
+  * ChatGPT Mode: Strict markdown headers with explicit negative guardrails.
+  * DeepSeek Reasoning Mode: Concise goal-oriented framing without redundant CoT bloat.
+- Action Bar (Strictly External Launch & Copy):
+  * [📋 Copy Master Prompt]: 1-tap copy with visual feedback toast.
+  * Direct 1-Click Launchers (Auto-copies prompt + opens tab): 
+    [Open in ChatGPT ↗], [Open in Claude ↗], [Open in Gemini ↗], [Open in DeepSeek ↗].
+
+
+3. SILENT INTELLIGENT FRAMEWORK ROUTING
+--------------------------------------------------------------------------------
+PromptBridge routes internal prompt construction to the optimal framework from 
+its built-in repository (passed seamlessly from Endpoint 1 to Endpoint 2):
+
+A. Heavyweight Frameworks (For Complex & Detailed Tasks):
+   - 11-POINT: Role, Objective, Context, Input, Requirements, Constraints, 
+     Decision Criteria, Output Format, Uncertainty, Verification.
+   - CO-STAR: Context, Objective, Style, Tone, Audience, Response (Writing & Comms).
+   - RISEN: Role, Instructions, Steps, End Goal, Narrowing (Roadmaps & Architecture).
+   - CREATE: Character, Request, Examples, Adjustments, Type, Extras (Few-Shot tasks).
+   - CRISPE: Capacity, Insight, Statement, Personality, Experiment (Brainstorming).
+
+B. Fast & Punchy Frameworks (For Coding & Quick Tasks):
+   - RTF: Role, Task, Format (Coding, debugging, SQL queries).
+   - RACE: Role, Action, Context, Expectation (Quick summarization & refactoring).
+   - TAG: Task, Action, Goal (Direct optimization tasks).
+   - APE: Action, Purpose, Expectation (Zero-fluff utility prompts).
+
+C. Domain-Specific & Transformation Frameworks:
+   - BAB: Before, After, Bridge (Code refactoring & transformation).
+   - CARE: Context, Action, Result, Example (Interview prep & resume bullets).
+   - ROSES: Role, Objective, Scenario, Expected Solution, Steps (DevOps & Troubleshooting).
+
+D. Cognitive Reasoning Add-Ons:
+   - CoT (Chain-of-Thought): Injected for logic, math, and algorithmic questions.
+   - ToT (Tree-of-Thoughts): Injected for system design & trade-off evaluation.
+
+
+4. POWER FEATURES CHECKLIST
+--------------------------------------------------------------------------------
+1. Dual-Engine LLM Core (100% Free Tier / ₹0 Cost):
+   - Primary: Groq Cloud (`llama-3.3-70b-versatile`) for instant JSON generation.
+   - Fallback/Alternate: Google Gemini (`gemini-2.0-flash`) via Google AI Studio.
+2. Target LLM Syntactic Tuning (Universal / Claude XML / ChatGPT / DeepSeek).
+3. "Anti-Fluff" Shield (Bans AI clichés like "delve", "testament", "certainly!").
+4. 1-Tap Mic / Voice Dictation via native browser Web Speech API.
+5. Local Prompt History & Starred Favorites via browser `localStorage` (0 DB cost).
+
+
+5. BACKEND API SPECIFICATIONS (STATELESS HANDOFF)
+--------------------------------------------------------------------------------
+Endpoint 1: POST /api/analyze-and-ask
+- Input: 
+  { 
+    "rawInput": string, 
+    "antiFluff": boolean, 
+    "targetLLM": "universal" | "claude" | "chatgpt" | "deepseek",
+    "engine": "groq" | "gemini"
+  }
+- Core Logic: 
+  * Understands intent & dialect (English, Hinglish, Telugish, broken speech).
+  * Selects the best internal prompt framework & reasoning add-on.
+  * Generates 1 to 4 high-leverage clarifying questions with 3-4 option pills each.
+- Output JSON Schema:
+  {
+    "detected_intent": string,
+    "selected_framework": "CO-STAR" | "RISEN" | "RTF" | "RACE" | "TAG" | "APE" | "CREATE" | "CRISPE" | "BAB" | "CARE" | "ROSES" | "11-POINT",
+    "reasoning_addon": "NONE" | "CoT" | "ToT",
+    "quality_score_initial": number,
+    "clarifying_questions": [
+      {
+        "id": string,
+        "question": string,
+        "allow_multiple": boolean,
+        "options": string[]
+      }
+    ]
+  }
+
+Endpoint 2: POST /api/generate-master-prompt
+- Input: 
+  { 
+    "rawInput": string, 
+    "selectedFramework": string,
+    "reasoningAddon": string,
+    "answers": Record<string, string[]>, 
+    "targetLLM": "universal" | "claude" | "chatgpt" | "deepseek", 
+    "antiFluff": boolean,
+    "engine": "groq" | "gemini"
+  }
+- Core Logic:
+  * Synthesizes rawInput + user's multi-select answers into the exact `selectedFramework`.
+  * Formats strictly according to `targetLLM` syntax (e.g., XML tags for Claude).
+  * Injects `[PASTE YOUR ... HERE]` placeholders if external context is required.
+  * Injects Anti-Fluff negative constraints if enabled.
+- Output JSON Schema:
+  {
+    "master_prompt": string,
+    "upgrades_applied": string[],
+    "has_placeholders": boolean,
+    "quality_score_final": number,
+    "target_model_recommendation": string
+  }
+
+
+6. TECH STACK & FILE STRUCTURE
+--------------------------------------------------------------------------------
+- Framework: Next.js (App Router, TypeScript).
+- Styling: Tailwind CSS or Modern CSS (Dark-mode glassmorphism, glowing accents, 
+  smooth step transitions).
+- Icons: `lucide-react`.
+- Speech Recognition: Native Web Speech API (`window.webkitSpeechRecognition`).
+- Environment Variables Needed (`.env.local`):
+  * `GROQ_API_KEY=your_key_here`
+  * `GEMINI_API_KEY=your_key_here`
+
+7. STEP-BY-STEP IMPLEMENTATION ROADMAP
+--------------------------------------------------------------------------------
+Step 1: Set up the Next.js project structure, install dependencies (`lucide-react`), 
+        configure environment keys, and define the core TypeScript types & system 
+        prompt schemas.
+Step 2: Build the two backend API routes:
+        - `/api/analyze-and-ask` (Silent framework selection, 1-4 smart questions, multi-select pills).
+        - `/api/generate-master-prompt` (Synthesizes master prompt, target syntax, variable placeholders, quality score).
+Step 3: Build the 3-Phase Frontend UI:
+        - Sleek dark-mode glassmorphic interface with micro-interactions.
+        - Voice dictation via Web Speech API.
+        - Dynamic multi-select pill selector + custom input + Skip to Defaults.
+        - Target LLM Syntactic Switcher (Universal, Claude XML, ChatGPT, DeepSeek).
+        - 1-Click Copy with visual toast + Direct Launchers (ChatGPT, Claude, Gemini, DeepSeek).
+        - LocalStorage History & Starred Favorites drawer.
+================================================================================

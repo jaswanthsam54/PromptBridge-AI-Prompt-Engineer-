@@ -1,0 +1,102 @@
+================================================================================
+PROMPTBRIDGE: BUILT-IN PROMPT ENGINEERING FRAMEWORK REPOSITORY
+================================================================================
+
+1. HEAVYWEIGHT FRAMEWORKS (Complex, Multi-step, Architecture, Strategy)
+--------------------------------------------------------------------------------
+1. 11-POINT (Enterprise & High-Stakes Systems):
+   - Role: Specific identity, expertise level, and operational perspective.
+   - Objective: Primary deliverable and business/technical mission.
+   - Context: Background information, tech stack, constraints, ecosystem.
+   - Input: Raw source code, data schema, or user requirements.
+   - Requirements: Non-negotiable functional specifications.
+   - Constraints: Strict negatives (what NOT to do, latency, security, memory).
+   - Decision Criteria: How trade-offs should be weighed and decided.
+   - Output Format: Exact structuring, markdown, JSON, or code formatting.
+   - Uncertainty Handling: What to do if information is ambiguous or missing.
+   - Edge Cases: Explicitly addressing failures, corner cases, and limits.
+   - Verification: Step-by-step checklist to test and confirm solution accuracy.
+
+2. CO-STAR (Communication, Copywriting & Professional Output):
+   - Context: Background information and current situation.
+   - Objective: Exact goal the response needs to achieve.
+   - Style: Preferred writing or design style (e.g., concise, executive).
+   - Tone: Emotional sentiment (e.g., authoritative, empathetic, formal).
+   - Audience: Target persona reading or using the output.
+   - Response: Target formatting, schema, or length.
+
+3. RISEN (Roadmaps, Blueprints & Execution Plans):
+   - Role: Persona of the expert planner.
+   - Instructions: Specific tasks to execute.
+   - Steps: Sequential progression and chronological phasing.
+   - End Goal: Definitive outcome and success criteria.
+   - Narrowing: Scope limitations, boundaries, and excluded elements.
+
+4. CREATE (Few-Shot Prompting, Structured Writing, Templates):
+   - Character: Persona and tone.
+   - Request: Core ask.
+   - Examples: High-quality few-shot exemplars of desired outputs.
+   - Adjustments: Specific modifications or customizations to the examples.
+   - Type: Format of output (e.g., bulleted list, table, essay).
+   - Extras: Bonus considerations or nuances.
+
+5. CRISPE (Ideation, Brainstorming & Perspective Exploration):
+   - Capacity: Persona or capability perspective.
+   - Insight: Background context and key observations.
+   - Statement: Clear problem statement or objective.
+   - Personality: Desired tone and creative flair.
+   - Experiment: Specific variations, options, or angles to explore.
+
+
+2. FAST & PUNCHY FRAMEWORKS (Code, Debugging, Speed, Summaries)
+--------------------------------------------------------------------------------
+6. RTF (Role-Task-Format):
+   - Role: E.g., Senior TypeScript Engineer.
+   - Task: E.g., Refactor this async handler to eliminate memory leaks.
+   - Format: E.g., Clean production code with inline explanations.
+
+7. RACE (Summarization, Code Reviews, Refactoring):
+   - Role: Expert persona.
+   - Action: Specific action to take on the input.
+   - Context: Environment, runtime, or audience context.
+   - Expectation: Desired depth, brevity, and deliverable format.
+
+8. TAG (Task, Action, Goal - Direct Optimization):
+   - Task: The primary assignment.
+   - Action: The explicit mechanism to apply.
+   - Goal: The quantitative or qualitative end state.
+
+9. APE (Action, Purpose, Expectation - Zero-Fluff Utility):
+   - Action: Directive verb and mission.
+   - Purpose: Why this is being done (intent).
+   - Expectation: Strict output rules and criteria.
+
+
+3. DOMAIN-SPECIFIC & TRANSFORMATION FRAMEWORKS
+--------------------------------------------------------------------------------
+10. BAB (Before - After - Bridge):
+    - Before: Current problematic state (bug, messy code, vague copy).
+    - After: Desired future state (fixed, optimized, clear).
+    - Bridge: Concrete step-by-step path and code to transition from Before to After.
+
+11. CARE (Context - Action - Result - Example):
+    - Context: Background setting and challenges.
+    - Action: Strategic and technical decisions executed.
+    - Result: Quantified impact and measurable outcome.
+    - Example: Concrete proof or sample implementation.
+
+12. ROSES (Role - Objective - Scenario - Expected Solution - Steps):
+    - Role: Specialist / SRE / DevOps / Security Lead.
+    - Objective: Resolve downtime, incident, or architecture bottleneck.
+    - Scenario: Exact incident logs, stack trace, and infrastructure environment.
+    - Expected Solution: Root cause analysis + verified hotfix.
+    - Steps: Runbook actions and mitigation procedures.
+
+
+4. COGNITIVE REASONING ADD-ONS
+--------------------------------------------------------------------------------
+- CoT (Chain-of-Thought):
+  "Think step-by-step through first principles before generating the final answer. Expose your intermediate reasoning and assumptions."
+- ToT (Tree-of-Thoughts):
+  "Explore at least 3 distinct architectural/solution paths. Evaluate trade-offs (pros, cons, complexity, performance) for each before synthesizing the optimal approach."
+================================================================================
