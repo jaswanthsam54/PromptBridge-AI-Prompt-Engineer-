@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Sparkles, Shield, Cpu, History, PanelLeft } from 'lucide-react';
-import { EngineType } from '@/types';
+import { Sparkles, Shield, Cpu, History, PanelLeft, User, LogOut, Lock, Zap } from 'lucide-react';
+import { EngineType, AuthUser } from '@/types';
 
 interface NavbarProps {
   engine: EngineType;
@@ -13,6 +13,10 @@ interface NavbarProps {
   onOpenHistory: () => void;
   sidebarOpen?: boolean;
   onToggleSidebar?: () => void;
+  user: AuthUser | null;
+  guestUsageCount: number;
+  onOpenAuth: () => void;
+  onLogout: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -24,6 +28,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenHistory,
   sidebarOpen = true,
   onToggleSidebar,
+  user,
+  guestUsageCount,
+  onOpenAuth,
+  onLogout,
 }) => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#4E342E]/20 bg-[#FFF3E0]/90 backdrop-blur-xl">
@@ -129,7 +137,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="open-history-btn"
             type="button"
             onClick={onOpenHistory}
-            className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold bg-white border border-[#4E342E]/25 text-[#1B0E07] hover:border-[#C62828] transition-all shrink-0 shadow-sm"
+            className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold bg-white border border-[#4E342E]/25 text-[#1B0E07] hover:border-[#C62828] transition-all shrink-0 shadow-sm cursor-pointer"
             title="View prompt history and saved favorites"
           >
             <History className="w-3.5 h-3.5 text-[#C62828]" />
@@ -140,6 +148,67 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             )}
           </button>
+
+          {/* User Account / Free Trial Status */}
+          {user ? (
+            <div className="flex items-center gap-1.5 pl-1 border-l border-[#4E342E]/20">
+              <div
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white border border-[#4E342E]/20 text-[#1B0E07] shadow-xs"
+                title={`Signed in as ${user.email}`}
+              >
+                <div className="w-5 h-5 rounded-lg bg-[#C62828]/10 text-[#C62828] flex items-center justify-center font-bold text-[10px]">
+                  <User className="w-3 h-3" />
+                </div>
+                <span className="text-xs font-bold max-w-[90px] truncate">
+                  @{user.username}
+                </span>
+                <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 font-bold hidden sm:inline">
+                  PRO
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={onLogout}
+                className="p-1.5 rounded-lg text-[#4E342E]/60 hover:text-[#C62828] hover:bg-white transition-colors cursor-pointer"
+                title="Log out"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 pl-1 border-l border-[#4E342E]/20">
+              <button
+                id="navbar-auth-btn"
+                type="button"
+                onClick={onOpenAuth}
+                className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all shadow-xs cursor-pointer ${
+                  guestUsageCount >= 2
+                    ? 'bg-[#C62828] text-white hover:bg-[#B71C1C] ring-2 ring-[#C62828]/30 animate-pulse'
+                    : 'bg-white border border-[#4E342E]/25 text-[#1B0E07] hover:border-[#C62828]'
+                }`}
+                title={
+                  guestUsageCount >= 2
+                    ? 'Limit reached - Sign in to continue'
+                    : `${2 - guestUsageCount} free prompt passes remaining`
+                }
+              >
+                {guestUsageCount >= 2 ? (
+                  <>
+                    <Lock className="w-3.5 h-3.5 text-[#FFB74D]" />
+                    <span>Unlock (Limit)</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-3.5 h-3.5 text-[#C62828] fill-[#C62828]" />
+                    <span className="font-mono text-[#C62828]">
+                      {2 - guestUsageCount}/2 Free
+                    </span>
+                    <span className="hidden md:inline">• Sign In</span>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

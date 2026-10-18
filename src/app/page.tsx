@@ -6,6 +6,7 @@ import { TargetSelector } from '@/components/TargetSelector';
 import { InspirationBadges } from '@/components/InspirationBadges';
 import { MasterPromptCard } from '@/components/MasterPromptCard';
 import { HistoryDrawer } from '@/components/HistoryDrawer';
+import { AuthModal } from '@/components/AuthModal';
 import {
   TargetLLM,
   EngineType,
@@ -14,6 +15,7 @@ import {
   PromptHistoryItem,
   FrameworkType,
   UnifiedMasterPromptResponse,
+  AuthUser,
 } from '@/types';
 import {
   Mic,
@@ -103,22 +105,50 @@ export default function Home() {
   // Command Center Sidebar State
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
+  // User Authentication & 2-Prompt Guest Trial state
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [guestUsageCount, setGuestUsageCount] = useState<number>(0);
+  const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
+
   // History state
   const [history, setHistory] = useState<PromptHistoryItem[]>([]);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [currentPromptId, setCurrentPromptId] = useState<string | null>(null);
 
-  // Load history from localStorage on mount
+  // Load history, user auth, and guest usage count from localStorage on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem('promptbridge_history');
       if (stored) {
         setHistory(JSON.parse(stored));
       }
+      const storedUser = localStorage.getItem('promptbridge_auth_user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      const storedCount = localStorage.getItem('promptbridge_guest_count');
+      if (storedCount) {
+        setGuestUsageCount(parseInt(storedCount, 10) || 0);
+      }
     } catch (e) {
-      console.warn('Failed to load history from localStorage', e);
+      console.warn('Failed to load from localStorage', e);
     }
   }, []);
+
+  // Logout handler
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('promptbridge_auth_user');
+    } catch (e) {}
+    setUser(null);
+    showToast('Signed out. Switched back to guest mode.');
+  };
+
+  // Auth success handler
+  const handleAuthSuccess = (authUser: AuthUser) => {
+    setUser(authUser);
+    showToast(`Welcome, @${authUser.username}! Unlimited access unlocked.`);
+  };
 
   // Save history to localStorage
   const saveHistory = (items: PromptHistoryItem[]) => {
@@ -202,6 +232,15 @@ export default function Home() {
       return;
     }
 
+    // Check 2-message guest limit: on 3rd attempt, prompt for username, email, password
+    if (!user && guestUsageCount >= 2) {
+      setIsAuthOpen(true);
+      setErrorMessage(
+        'You have used your 2 free guest prompt passes. Please enter your username, email, and password to continue unlimited prompt engineering.'
+      );
+      return;
+    }
+
     setIsLoading(true);
     setErrorMessage(null);
     const targetToUse = overrideTarget || targetLLM;
@@ -242,6 +281,15 @@ export default function Home() {
       });
 
       setCurrentPhase(3);
+
+      // Increment guest usage count if not logged in
+      if (!user) {
+        const nextCount = guestUsageCount + 1;
+        setGuestUsageCount(nextCount);
+        try {
+          localStorage.setItem('promptbridge_guest_count', nextCount.toString());
+        } catch (e) {}
+      }
 
       // Save to local storage history
       const promptId = `pb-${Date.now()}`;
@@ -340,6 +388,10 @@ export default function Home() {
         onOpenHistory={() => setIsHistoryOpen(true)}
         sidebarOpen={sidebarOpen}
         onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
+        user={user}
+        guestUsageCount={guestUsageCount}
+        onOpenAuth={() => setIsAuthOpen(true)}
+        onLogout={handleLogout}
       />
 
       {/* Main 3-Column Command Center Workspace */}
@@ -527,6 +579,45 @@ export default function Home() {
 
                 {/* Input Workbench Card */}
                 <div className="glass-panel-elevated rounded-2xl p-4 sm:p-6 border border-[#4E342E]/25 shadow-md relative">
+                  {/* Guest Trial Status Banner */}
+                  {!user && (
+                    <div
+                      className={`flex items-center justify-between gap-2 px-3.5 py-2 mb-3.5 rounded-xl text-xs font-semibold border transition-all ${
+                        guestUsageCount >= 2
+                          ? 'bg-[#C62828]/10 border-[#C62828]/40 text-[#C62828]'
+                          : 'bg-[#FFB74D]/25 border-[#FFB74D]/60 text-[#1B0E07]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Zap
+                          className={`w-3.5 h-3.5 shrink-0 ${
+                            guestUsageCount >= 2 ? 'text-[#C62828] fill-[#C62828]' : 'text-[#C62828]'
+                          }`}
+                        />
+                        <span>
+                          {guestUsageCount >= 2 ? (
+                            <>
+                              <strong>Free trial limit reached (2/2 prompts used).</strong> Sign in to continue.
+                            </>
+                          ) : (
+                            <>
+                              <strong>{2 - guestUsageCount} free prompt{2 - guestUsageCount === 1 ? '' : 's'} remaining</strong> without login.
+                            </>
+                          )}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setIsAuthOpen(true)}
+                        className={`text-[11px] font-bold underline shrink-0 cursor-pointer ${
+                          guestUsageCount >= 2 ? 'text-[#C62828] hover:text-[#B71C1C]' : 'text-[#1B0E07] hover:text-[#C62828]'
+                        }`}
+                      >
+                        {guestUsageCount >= 2 ? 'Unlock Unlimited ➔' : 'Sign In / Register'}
+                      </button>
+                    </div>
+                  )}
+
                   <div className="relative">
                     <textarea
                       id="raw-prompt-input"
@@ -742,6 +833,14 @@ export default function Home() {
         onClearAll={handleClearHistory}
         onSelectHistoryItem={handleSelectHistoryItem}
         onShowToast={showToast}
+      />
+
+      {/* User Authentication & Limit Gating Modal */}
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+        onSuccess={handleAuthSuccess}
+        guestUsageCount={guestUsageCount}
       />
 
       {/* Toast Notification */}

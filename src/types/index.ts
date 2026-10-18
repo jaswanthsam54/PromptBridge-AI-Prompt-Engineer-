@@ -101,3 +101,10 @@ export interface PromptHistoryItem {
   qualityFinal: number;
   isStarred: boolean;
 }
+
+export interface AuthUser {
+  username: string;
+  email: string;
+  createdAt?: number;
+}
+
