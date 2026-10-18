@@ -419,8 +419,8 @@ export default function Home() {
           {sidebarOpen && (
             <aside className="lg:col-span-3 space-y-4 animate-in fade-in slide-in-from-left duration-200">
               {/* Quick Starters & Presets */}
-              <div className="glass-panel-elevated rounded-2xl p-4 border border-[#4E342E]/20 shadow-xs space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-[#4E342E]/10">
+              <div className="glass-panel-elevated rounded-2xl p-4 shadow-xs space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-amber-900/10">
                   <div className="flex items-center gap-2">
                     <Flame className="w-4 h-4 text-[#C62828]" />
                     <h2 className="text-xs font-bold text-[#1B0E07] uppercase tracking-wider">
@@ -443,7 +443,7 @@ export default function Home() {
                         setRawInput(preset.prompt);
                         if (currentPhase === 3) setCurrentPhase(1);
                       }}
-                      className="w-full text-left p-2.5 rounded-xl bg-white/95 border border-[#4E342E]/15 hover:border-[#C62828] hover:bg-white transition-all group flex items-start gap-2 shadow-2xs"
+                      className="w-full text-left p-2.5 rounded-xl bg-white border border-amber-900/10 hover:border-[#C62828]/40 hover:bg-white transition-all group flex items-start gap-2 shadow-2xs"
                     >
                       <span className="text-sm shrink-0 mt-0.5">{preset.icon}</span>
                       <div className="min-w-0 flex-1">
@@ -461,8 +461,8 @@ export default function Home() {
               </div>
 
               {/* Recent & Starred Prompts Rail */}
-              <div className="glass-panel rounded-2xl p-4 border border-[#4E342E]/20 shadow-xs space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-[#4E342E]/10">
+              <div className="glass-panel rounded-2xl p-4 shadow-xs space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-amber-900/10">
                   <div className="flex items-center gap-2">
                     <History className="w-4 h-4 text-[#C62828]" />
                     <h2 className="text-xs font-bold text-[#1B0E07] uppercase tracking-wider">
@@ -490,7 +490,7 @@ export default function Home() {
                     {history.slice(0, 5).map((item) => (
                       <div
                         key={item.id}
-                        className="w-full p-2.5 rounded-xl bg-white border border-[#4E342E]/15 hover:border-[#C62828] transition-all flex items-center justify-between gap-2 shadow-2xs group"
+                        className="w-full p-2.5 rounded-xl bg-white border border-amber-900/10 hover:border-[#C62828] transition-all flex items-center justify-between gap-2 shadow-2xs group"
                       >
                         <button
                           type="button"
@@ -531,7 +531,7 @@ export default function Home() {
               </div>
 
               {/* Framework Reference Engine */}
-              <div className="glass-panel rounded-2xl p-4 border border-[#4E342E]/20 shadow-xs space-y-2">
+              <div className="glass-panel rounded-2xl p-4 shadow-xs space-y-2">
                 <div className="flex items-center gap-2">
                   <BookOpen className="w-4 h-4 text-[#C62828]" />
                   <h2 className="text-xs font-bold text-[#1B0E07] uppercase tracking-wider">
@@ -545,7 +545,7 @@ export default function Home() {
                   {FRAMEWORK_QUICK_CARDS.map((f, i) => (
                     <div
                       key={i}
-                      className="p-2 rounded-xl bg-white/80 border border-[#4E342E]/15 text-left"
+                      className="p-2 rounded-xl bg-white border border-amber-900/10 text-left"
                       title={f.desc}
                     >
                       <div className="text-[11px] font-extrabold text-[#C62828]">{f.name}</div>
@@ -578,13 +578,13 @@ export default function Home() {
                 </div>
 
                 {/* Input Workbench Card */}
-                <div className="glass-panel-elevated rounded-2xl p-4 sm:p-6 border border-[#4E342E]/25 shadow-md relative">
+                <div className="glass-panel-elevated rounded-2xl p-4 sm:p-6 shadow-md relative">
                   {/* Guest Trial Status Banner */}
                   {!user && (
                     <div
                       className={`flex items-center justify-between gap-2 px-3.5 py-2 mb-3.5 rounded-xl text-xs font-semibold border transition-all ${
                         guestUsageCount >= 2
-                          ? 'bg-[#C62828]/10 border-[#C62828]/40 text-[#C62828]'
+                          ? 'bg-[#C62828]/10 border-[#C62828]/30 text-[#C62828]'
                           : 'bg-[#FFB74D]/25 border-[#FFB74D]/60 text-[#1B0E07]'
                       }`}
                     >
@@ -742,7 +742,7 @@ export default function Home() {
           {/* COLUMN 3 (Right 3 cols): AI Tuning Cockpit & Live Optimization Metrics */}
           <div className="lg:col-span-3 space-y-4">
             {/* Target LLM Syntactic Tuning Selector */}
-            <div className="glass-panel-elevated rounded-2xl p-4 sm:p-5 border border-[#4E342E]/25 shadow-xs">
+            <div className="glass-panel-elevated rounded-2xl p-4 sm:p-5 shadow-xs">
               <TargetSelector
                 selected={targetLLM}
                 onSelect={(newTarget) => {
@@ -755,7 +755,7 @@ export default function Home() {
             </div>
 
             {/* Anti-Fluff Negative Shield */}
-            <div className="glass-panel rounded-2xl p-4 sm:p-5 border border-[#4E342E]/20 shadow-xs space-y-2">
+            <div className="glass-panel rounded-2xl p-4 sm:p-5 shadow-xs space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-[#C62828]" />
@@ -763,7 +763,7 @@ export default function Home() {
                     Anti-Fluff Shield
                   </h3>
                 </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${antiFluff ? 'bg-[#C62828] text-white' : 'bg-gray-300 text-gray-700'}`}>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${antiFluff ? 'bg-[#C62828] text-white' : 'bg-amber-900/10 text-[#4E342E]'}`}>
                   {antiFluff ? 'ACTIVE' : 'OFF'}
                 </span>
               </div>
@@ -773,7 +773,7 @@ export default function Home() {
             </div>
 
             {/* 1-Pass Architecture Card */}
-            <div className="glass-panel rounded-2xl p-4 sm:p-5 border border-[#4E342E]/20 shadow-xs space-y-2">
+            <div className="glass-panel rounded-2xl p-4 sm:p-5 shadow-xs space-y-2">
               <div className="flex items-center gap-2">
                 <Zap className="w-4 h-4 text-[#C62828]" />
                 <h3 className="text-xs font-bold text-[#1B0E07] uppercase tracking-wider">
@@ -783,14 +783,14 @@ export default function Home() {
               <p className="text-xs text-[#4E342E] leading-relaxed font-medium">
                 Executes intent diagnosis, cognitive routing, and master prompt synthesis in a single unified API pass (50% quota & latency reduction).
               </p>
-              <div className="pt-1 flex items-center justify-between text-[11px] font-medium text-[#4E342E]/80 border-t border-[#4E342E]/10">
+              <div className="pt-1 flex items-center justify-between text-[11px] font-medium text-[#4E342E]/80 border-t border-amber-900/10">
                 <span>Active Model:</span>
                 <span className="font-bold text-[#C62828]">{engine === 'gemini' ? 'Gemini 3 Flash' : 'Groq Llama-3.3'}</span>
               </div>
             </div>
 
             {/* Live Quality Optimization Card */}
-            <div className="glass-panel rounded-2xl p-4 sm:p-5 border border-[#4E342E]/20 shadow-xs space-y-3">
+            <div className="glass-panel rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-[#C62828]" />

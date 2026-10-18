@@ -77,7 +77,7 @@ export const TargetSelector: React.FC<TargetSelectorProps> = ({ selected, onSele
               className={`w-full flex flex-col text-left p-3 rounded-xl transition-all duration-200 border cursor-pointer min-w-0 ${
                 isSelected
                   ? 'bg-white border-[#C62828] shadow-md shadow-[#C62828]/15 ring-2 ring-[#C62828]/25'
-                  : 'bg-white/85 border-[#4E342E]/20 text-[#4E342E] hover:border-[#C62828]/50 hover:bg-white'
+                  : 'bg-white border-amber-900/10 text-[#4E342E] hover:border-[#C62828]/40 hover:shadow-xs'
               }`}
             >
               <div className="flex items-center justify-between w-full mb-1.5 gap-2 min-w-0">
@@ -90,7 +90,7 @@ export const TargetSelector: React.FC<TargetSelectorProps> = ({ selected, onSele
                     className={`p-1 rounded-md shrink-0 ${
                       isSelected
                         ? 'bg-[#C62828] text-white'
-                        : 'bg-[#FFF3E0] text-[#C62828] border border-[#4E342E]/10'
+                        : 'bg-[#FFF3E0] text-[#C62828] border border-amber-900/10'
                     }`}
                   >
                     {t.icon}
@@ -101,7 +101,7 @@ export const TargetSelector: React.FC<TargetSelectorProps> = ({ selected, onSele
                   className={`text-[10px] px-2 py-0.5 rounded-md font-mono font-bold shrink-0 border ${
                     isSelected
                       ? 'bg-[#FFB74D] text-[#1B0E07] border-[#FFB74D]'
-                      : 'bg-[#FFF3E0] text-[#4E342E] border-[#4E342E]/20'
+                      : 'bg-[#FFF3E0] text-[#4E342E] border-amber-900/10'
                   }`}
                 >
                   {t.badge}

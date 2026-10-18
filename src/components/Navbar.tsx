@@ -95,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Shield className={`w-3.5 h-3.5 ${antiFluff ? 'text-white' : 'text-[#4E342E]'}`} />
             <span className="hidden sm:inline">Anti-Fluff</span>
-            <span className={`px-1 sm:px-1.5 py-0.2 rounded text-[9px] sm:text-[10px] font-bold ${antiFluff ? 'bg-black/20 text-white' : 'bg-[#FFF3E0] text-[#4E342E]'}`}>
+            <span className={`px-1 sm:px-1.5 py-0.2 rounded text-[9px] sm:text-[10px] font-bold ${antiFluff ? 'bg-white/25 text-white' : 'bg-[#FFF3E0] text-[#4E342E]'}`}>
               {antiFluff ? 'ON' : 'OFF'}
             </span>
           </button>

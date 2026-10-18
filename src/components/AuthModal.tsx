@@ -75,9 +75,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B0E07]/45 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-md rounded-3xl bg-[#FFF3E0] border border-[#4E342E]/25 shadow-2xl overflow-hidden p-6 sm:p-8 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-md rounded-3xl bg-[#FFF8F0] border border-white/80 shadow-2xl overflow-hidden p-6 sm:p-8 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Subtle decorative glow */}
